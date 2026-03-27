@@ -6,7 +6,7 @@
 # =============================================================================
 
 # Stage 1: Build
-FROM docker.io/library/maven:3.9-eclipse-temurin-25
+FROM docker.io/library/maven:3-eclipse-temurin-25
 
 LABEL maintainer="G" \
       author="bostjans" \

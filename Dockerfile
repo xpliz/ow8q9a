@@ -6,7 +6,7 @@
 # =============================================================================
 
 # Stage 1: Build
-FROM docker.io/library/maven:3.9-eclipse-temurin-25 AS builder
+FROM docker.io/library/maven:3-eclipse-temurin-25 AS builder
 
 RUN git clone --branch r1_3_1 https://github.com/bostjans/javaServletMirror /build
 WORKDIR /build
