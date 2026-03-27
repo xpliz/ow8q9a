@@ -1,0 +1,22 @@
+# =============================================================================
+# Dockerfile - ServletMirror Java Application
+# =============================================================================
+# Multi-stage build for optimized production image
+# Compatible with Docker and Podman
+# =============================================================================
+
+# Stage 1: Build
+FROM docker.io/library/maven:3.9-eclipse-temurin-25
+
+LABEL maintainer="G" \
+      author="bostjans" \
+      description="ServletMirror - HTTP Request Mirror (like httpbin)" \
+      version="1.3.1"
+
+RUN git clone https://github.com/bostjans/javaServletMirror /app
+
+WORKDIR /app
+
+RUN mvn clean package
+
+ENTRYPOINT ["sh", "-c", "/app/runDev.sh"]
