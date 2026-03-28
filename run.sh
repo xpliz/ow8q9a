@@ -137,6 +137,8 @@ run_container() {
     local image=$([ "$env" = "dev" ] && echo $IMAGE_DEV || echo $IMAGE_PROD)
     local container=$([ "$env" = "dev" ] && echo $CONTAINER_DEV || echo $CONTAINER_PROD)
     local port=$([ "$env" = "dev" ] && echo "11080" || echo "8080")
+    local memory=$([ "$env" = "dev" ] && echo "1g" || echo "512m")
+    local cpus=$([ "$env" = "dev" ] && echo "1" || echo "0.5")
 
     show_banner
     echo -e "${BOLD}Running $env container with ${runtime}...${NC}"
@@ -146,11 +148,14 @@ run_container() {
         --name $container \
         -p ${port}:${port} \
         --restart unless-stopped \
+        --memory=$memory \
+        --cpus=$cpus \
         $image
 
     log_success "Container '$container' started on port $port"
     echo ""
     log_info "URL: http://localhost:$port"
+    log_info "Resources: ${memory} memory, ${cpus} CPU"
 }
 
 compose() {
