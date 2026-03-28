@@ -14,7 +14,7 @@
     - [Docker](#docker-1)
     - [Podman](#podman-1)
   - [Docker Compose](#docker-compose)
-  - [Podman Play Kube](#podman-play-kube)
+  - [Podman Play](#podman-play)
   - [Helper Script](#helper-script)
     - [Build](#build)
     - [Run](#run)
@@ -148,31 +148,16 @@ podman compose down
 
 ---
 
-## Podman Play Kube
+## Podman Play
 
-First, ensure images are built, then:
+**First, ensure images are built, then:**
 
 ```bash
-# Run production pod
+# Deploy development (port 11080) and production (port 8080)
 podman play kube --replace servlet.yaml
 
-# This creates a pod named "servlet" running on port 8080
-# Access at: http://localhost:8080
-
-# Run development pod
-podman play kube --replace - <<EOF
-apiVersion: v1
-kind: Pod
-metadata:
-  name: servlet-dev
-spec:
-  containers:
-    - name: servlet-dev
-      image: servlet:dev
-      ports:
-        - containerPort: 11080
-          hostPort: 11080
-EOF
+# This creates two pods named "servlet" listening on port 8080 and "servlet-dev" listening on port 11080
+# Access at: http://localhost:8080 and http://localhost:11080 respectively
 
 # Stop and remove pods
 podman pod ls | grep servlet
