@@ -104,9 +104,17 @@ podman build -t servlet:1.3.1 -f Dockerfile .
 docker run -d --name servlet -p 8080:8080 --restart unless-stopped servlet:1.3.1
 # Access at: http://localhost:8080
 
+# Run production container with resource limits
+docker run -d --name servlet -p 8080:8080 --restart unless-stopped \
+  --memory=512m --cpus=0.5 servlet:1.3.1
+
 # Run development container
 docker run -d --name servlet-dev -p 11080:11080 --restart unless-stopped servlet:dev
 # Access at: http://localhost:11080
+
+# Run development container with resource limits
+docker run -d --name servlet-dev -p 11080:11080 --restart unless-stopped \
+  --memory=1g --cpus=1 servlet:dev
 ```
 
 ### Podman
@@ -116,9 +124,17 @@ docker run -d --name servlet-dev -p 11080:11080 --restart unless-stopped servlet
 podman run -d --name servlet -p 8080:8080 --restart unless-stopped servlet:1.3.1
 # Access at: http://localhost:8080
 
+# Run production container with resource limits
+podman run -d --name servlet -p 8080:8080 --restart unless-stopped \
+  --memory=512m --cpus=0.5 servlet:1.3.1
+
 # Run development container
 podman run -d --name servlet-dev -p 11080:11080 --restart unless-stopped servlet:dev
 # Access at: http://localhost:11080
+
+# Run development container with resource limits
+podman run -d --name servlet-dev -p 11080:11080 --restart unless-stopped \
+  --memory=1g --cpus=1 servlet:dev
 ```
 
 ---
